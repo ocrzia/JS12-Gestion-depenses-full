@@ -5,7 +5,7 @@ const addBt =               document.querySelector('.add-button');
 const descriptionInput =    document.querySelector('.description');
 const amountInput =         document.querySelector('.amount');
 const categoryInput =       document.querySelector('.category');
-const depenseList =         document.querySelector('.depense-list');
+const depense =             document.querySelector('.depenses');
 const tot =                 document.querySelector('.total span');
 // ==============================
 // 🧠 Variables globales
@@ -24,39 +24,44 @@ function resetForm() {
   descriptionInput.focus();
 }
 
-// Fonction pour ajouter un Emoji en fonction de la catégorie
-function getEmoji(category) {
-  if (category === 'alimentation') return '🍔 ';
-  if (category === 'transport') return '🚗 ';
-  if (category === 'divertissement') return '🎉 ';
-  if (category === 'logement') return '🏠 ';
-  return '🧾 '; // emoji par défaut
-}
 
 // Fonction pour ajouter une dépense
 function addDepense(description, amount, category) {
   depenses.push([description, amount, category]);
   total += parseFloat(amount);
   tot.textContent = `${total}`;
-  resetForm();
 }
 
 // Fonction pour afficher les dépenses
 function displayDepenses() {
-  depenseList.innerHTML = ''; // Vider la liste avant de l'afficher
-  if (depenses.length === 0) {
-    depenseList.innerHTML = '<p>Aucune dépense enregistrée.</p>';
-  } else {
-    depenses.forEach((depense, index) => {
-      const div = document.createElement('div');
-      div.className = 'depense-item';
-      div.innerHTML = `
-      ${getEmoji(depense[2])} ${depense[0]} | ${depense[1]}€
-      <button class="delete-button" data-index="${index}" title="Supprimer ${depense[0]}">❌</button>
-      `;
-      depenseList.appendChild(div);
-    });
-  }
+  document.querySelectorAll('.list').forEach(depense => {depense.innerHTML = '';});
+  document.querySelectorAll('.sous-total span').forEach(span => {span.textContent = '0';});
+  const sousTotaux = [];
+
+  depenses.forEach((depense, index) => {
+    // Déstructure la dépense  .. ça correspond à assigner à chaque partie d'un tableau une variable :)
+    const [description, montant, categorie] = depense;
+    const targetContainer = document.querySelector(`.${categorie} .list`);
+    const sousTotalSpan = document.querySelector(`.${categorie} .sous-total span`);
+
+    // Affichage de la dépense
+    const div = document.createElement('div');
+    div.className = 'depense-item';
+    div.innerHTML = `
+    ${description} | ${montant}€
+    <button class="delete-button" data-index="${index}" title="Supprimer ${description}">❌</button>
+    `;
+    targetContainer.appendChild(div);
+
+    // Calculer le sous-total
+    const montantNum = parseFloat(montant);
+    // On envoie la catégorie sous forme de clé dans mon tableau et on additionne le montant
+    // Si la catégorie n'existe pas, on l'initialise à 0
+    sousTotaux[categorie] = (sousTotaux[categorie] || 0) + montantNum;
+
+    // Mettre à jour l'affichage du sous-total
+    sousTotalSpan.textContent = sousTotaux[categorie];
+  });
 }
 
 // Fonction pour supprimer une dépense
@@ -80,10 +85,11 @@ addBt.addEventListener('click', (e) => {
   if (description && !isNaN(amount) && category) {
     addDepense(description, amount, category);
     displayDepenses();
+    resetForm();
   }
 });
 
-depenseList.addEventListener('click', (e) => {
+depense.addEventListener('click', (e) => {
   if (e.target.matches('.delete-button')) {   
     const index = e.target.dataset.index;
     deleteDepense(index);

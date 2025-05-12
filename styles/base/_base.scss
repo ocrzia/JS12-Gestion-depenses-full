@@ -99,19 +99,26 @@ label {
 }
 .depenses {
   display: flex;
+  flex-wrap:wrap;
   justify-content: center;
   max-width:1000px;
   margin:0 auto;
+  gap: 20px;
 }
 .depenses > * {
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
-  padding:5rem;
-  margin:50px 0;
-  width:25%;
+  padding:3rem;
+  margin:50px 0 0 0;
+  width:calc(50% - 20px);
   border-radius:15px;
+  position: relative;
+  font-size: 1.5rem;
   h2 {
     text-align: center;
-    font-size: 1.5rem;
+    font-size: 2.5rem;
     margin-bottom: 2rem;
+    position: absolute;
+    top:0;
+    transform:translateY(-120%);
   }
 } 
