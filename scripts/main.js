@@ -34,7 +34,10 @@ function addDepense(description, amount, category) {
 
 // Fonction pour afficher les dépenses
 function displayDepenses() {
-  document.querySelectorAll('.list').forEach(depense => {depense.innerHTML = '';});
+  // Vider chaque conteneur .list et remettre le message par défaut
+  document.querySelectorAll('.list').forEach(list => {
+    list.innerHTML = '';
+  });
   document.querySelectorAll('.sous-total span').forEach(span => {span.textContent = '0';});
   const sousTotaux = [];
 
@@ -42,7 +45,7 @@ function displayDepenses() {
     // Déstructure la dépense  .. ça correspond à assigner à chaque partie d'un tableau une variable :)
     const [description, montant, categorie] = depense;
     const targetContainer = document.querySelector(`.${categorie} .list`);
-    const sousTotalSpan = document.querySelector(`.${categorie} .sous-total span`);
+    const sousTotalSpan = document.querySelector(`.${categorie} h2 span`);
 
     // Affichage de la dépense
     const div = document.createElement('div');

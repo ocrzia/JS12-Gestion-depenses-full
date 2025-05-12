@@ -1,7 +1,7 @@
 # 🚀 Consignes
 
 Exercice recap sur les tableaux
-> Remise en route Tableaux, createElement(), appendchild() et première déstructuration de tableau
+> Exercice recap + Bonus
 
 Les Bonus ont été réalisés
 
