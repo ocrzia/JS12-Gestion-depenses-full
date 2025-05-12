@@ -2,7 +2,8 @@
 
 Exercice recap sur les tableaux
 > Remise en route Tableaux, createElement(), appendchild() et première déstructuration de tableau
-> Les Bonus ont été réalisés
+
+Les Bonus ont été réalisés
 
 ## 📦 Technologies utilisées
 
