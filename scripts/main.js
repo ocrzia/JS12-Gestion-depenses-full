@@ -34,12 +34,12 @@ function addDepense(description, amount, category) {
 
 // Fonction pour afficher les dépenses
 function displayDepenses() {
-  // Vider chaque conteneur .list et remettre le message par défaut
+  // Vider chaque conteneur .list et réinitialiser les sous-totaux de chaque catégorie
   document.querySelectorAll('.list').forEach(list => {
     list.innerHTML = '';
   });
-  document.querySelectorAll('.sous-total span').forEach(span => {span.textContent = '0';});
-  const sousTotaux = [];
+  document.querySelectorAll('.depenses h2 span').forEach(span => {span.textContent = '0';});
+  const sousTotaux = {};
 
   depenses.forEach((depense, index) => {
     // Déstructure la dépense  .. ça correspond à assigner à chaque partie d'un tableau une variable :)
